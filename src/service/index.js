@@ -9,39 +9,76 @@ const genereUrl = `${url}/genre/movie/list`;
 const moviesUrl = `${url}/discover/movie`;
 const personUrl = `${url}/trending/person/week`;
 
-export const fetchMovies = async() => {
-    try {
-        const {data} = await axios.get(nowPlayingUrl,{
-            params:{
-                api_key:apikey,
-                language:'en_US',
-                page:1
-            }
-        })
-        const posterUrl = 'https://image.tmdb.org/t/p/original/';
-        const modifiedData = data['results'].map((m) => ({
-            id: m['id'],
-            backPoster: posterUrl + m['backdrop_path'],
-            popularity: m['popularith'],
-            title: m['title'],
-            poster: posterUrl + m['poster_path'],
-            overview: m['overview'],
-            rating: m['vote_average'],
-        }))
+export const fetchMovies = async () => {
+  try {
+    const { data } = await axios.get(nowPlayingUrl, {
+      params: {
+        api_key: apikey,
+        language: 'en_US',
+        page: 1,
+      },
+    });
+    const posterUrl = 'https://image.tmdb.org/t/p/original/';
+    const modifiedData = data['results'].map((m) => ({
+      id: m['id'],
+      backPoster: posterUrl + m['backdrop_path'],
+      popularity: m['popularith'],
+      title: m['title'],
+      poster: posterUrl + m['poster_path'],
+      overview: m['overview'],
+      rating: m['vote_average'],
+    }));
 
-        return modifiedData;
-    } catch (error) {
-        
-    }
+    return modifiedData;
+  } catch (error) {}
 };
 
-export const fetchGenre = () => {};
+export const fetchGenre = async (genre_id) => {
+  try {
+    const { data } = await axios.get(genereUrl, {
+      params: {
+        api_key: apikey,
+        language: 'en_US',
+        page: 1,
+        with_genres: genre_id,
+      },
+    });
+    const modifiedData = data['genres'].map((g) => ({
+      id: g['id'],
+      name: g['name'],
+    }));
+    return modifiedData;
+  } catch (error) {}
+};
 
-export const fetchMovieByGenre = () => {};
+export const fetchMovieByGenre = async (genre_id) => {
+  try {
+    const { data } = await axios.get(moviesUrl, {
+      params: {
+        api_key: apikey,
+        language: 'en_US',
+        page: 1,
+        with_genres: genre_id,
+      },
+    });
+    const posterUrl = 'https://image.tmdb.org/t/p/original/';
+    const modifiedData = data['results'].map((m) => ({
+      id: m['id'],
+      backPoster: posterUrl + m['backdrop_path'],
+      popularity: m['popularith'],
+      title: m['title'],
+      poster: posterUrl + m['poster_path'],
+      overview: m['overview'],
+      rating: m['vote_average'],
+    }));
+
+    return modifiedData;
+  } catch (error) {}
+};
 
 export const fetchPersons = () => {};
 
-export const fetchTopRatedMovie  = () => {};
+export const fetchTopRatedMovie = () => {};
 
 export const fetchMovieDetail = () => {};
 
