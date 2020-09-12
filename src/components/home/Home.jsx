@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { fetchMovies, fetchGenre, fetchMovieByGenre } from '../../service';
+import {
+  fetchMovies,
+  fetchGenre,
+  fetchMovieByGenre,
+  fetchPersons,
+  fetchTopratedMovie,
+} from '../../service';
 import RBCarousel from 'react-bootstrap-carousel';
 import 'react-bootstrap-carousel/dist/react-bootstrap-carousel.css';
 import '../../index.css';
@@ -10,12 +16,16 @@ export function Home() {
   const [nowPlaying, setNowPlaying] = useState([]);
   const [geners, setGeneres] = useState([]);
   const [movieByGenre, setMoviebyGenre] = useState([]);
+  const [persons, setPersons] = useState([]);
+  const [topRated, setTopRated] = useState([]);
 
   useEffect(() => {
     async function fetchApi() {
       setNowPlaying(await fetchMovies());
       setGeneres(await fetchGenre());
       setMoviebyGenre(await fetchMovieByGenre(28));
+      setPersons(await fetchPersons());
+      setTopRated(await fetchTopratedMovie());
     }
     fetchApi();
   }, []);
@@ -70,6 +80,46 @@ export function Home() {
       </div>
     );
   });
+
+  const trendingPersons = persons.slice(0, 4).map((p, i) => {
+    return (
+      <div className="col-md-3 text-center" key={i}>
+        <img
+          className="img-fluid rounded-circle mx-auto d-block"
+          src={p.profileImg}
+          alt={p.name}
+        ></img>
+        <p className="font-weight-bold text-center">{p.name}</p>
+        <p
+          className="font-weight-light text-center"
+          style={{ color: '#5a606b' }}
+        >
+          Trending for {p.known}
+        </p>
+      </div>
+    );
+  });
+
+  const topRatedList = topRated.slice(0, 4).map((item, index) => {
+    return (
+      <div className="col-md-3" key={index}>
+        <div className="card">
+          <Link to={`/movie/${item.id}`}>
+            <img className="img-fluid" src={item.poster} alt={item.title}></img>
+          </Link>
+        </div>
+        <div className="mt-3">
+          <p style={{ fontWeight: 'bolder' }}>{item.title}</p>
+          <p>Rated: {item.rating}</p>
+          <ReactStars
+            count={item.rating}
+            size={20}
+            color1={'#f4c10f'}
+          ></ReactStars>
+        </div>
+      </div>
+    );
+  });
   return (
     <div className="container">
       <div className="row mt-2">
@@ -91,9 +141,98 @@ export function Home() {
         </div>
       </div>
 
-    
-        <div className="row mt-3">{movieList}</div>
+      <div className="row mt-3">{movieList}</div>
+      <div className="row mt-3">
+        <div className="col">
+          <p
+            className="font-weight-bold text-center"
+            style={{ color: '#5a606b' }}
+          >
+            TRENDING PERSONS ON THIS WEEK
+          </p>
+        </div>
+      </div>
+      <div className="row mt-3">{trendingPersons} </div>
+
+      <div className="row mt-3">
+        <div className="col">
+          <p className="font-weight-bold" style={{ color: '#5a606b' }}>
+            TOP RATED MOVIES
+          </p>
+        </div>
+      </div>
+      <div className="row mt-3">{topRatedList}</div>
       
+      <hr className="mt-5" style={{ borderTop: "1px solid #5a606b" }}></hr>
+
+      <div className="row mt-3 mb-5">
+        <div className="col-md-8 col-sm-6" style={{ color: "#5a606b" }}>
+          <h3>ABOUT ME</h3>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi
+            error earum perspiciatis praesentium sint ipsum provident blanditiis
+            pariatur necessitatibus voluptas, cum, atque iste eligendi autem,
+            culpa cupiditate placeat facilis repellat.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus,
+            perspiciatis? Numquam, enim illo voluptatum neque facere aut sed ut
+            dolore nihil? Nulla sit, recusandae ea tenetur rerum deserunt sequi
+            earum?
+          </p>
+          <ul className="list-inline">
+            <li className="list-inline-item">
+              <a href="/" style={{ color: "#f4c10f" }}>
+                <i className="fab fa-facebook"></i>
+              </a>
+            </li>
+            <li className="list-inline-item">
+              <a href="/" style={{ color: "#f4c10f" }}>
+                <i className="fab fa-youtube"></i>
+              </a>
+            </li>
+            <li className="list-inline-item">
+              <a href="/" style={{ color: "#f4c10f" }}>
+                <i className="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li className="list-inline-item">
+              <a href="/" style={{ color: "#f4c10f" }}>
+                <i className="fab fa-instagram"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="col-md-4 col-sm-6" style={{ color: "#5a606b" }}>
+          <h3>KEEP IN TOUCH</h3>
+          <ul className="list-unstyled">
+            <li>
+              <p>
+                <strong>
+                  <i className="fas fa-map-marker-alt"></i> Address:
+                </strong>{" "}
+                city, state, country
+              </p>
+            </li>
+            <li>
+              <p>
+                <strong>
+                  <i className="fas fa-map-marker-alt"></i> Phone:
+                </strong>{" "}
+                +01 00 00 00
+              </p>
+            </li>
+            <li>
+              <p>
+                <strong>
+                  <i className="fas fa-envelope"></i> Email:
+                </strong>{" "}
+                info@infomail.com
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
