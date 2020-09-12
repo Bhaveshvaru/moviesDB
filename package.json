@@ -13,9 +13,10 @@
     "react-bootstrap-carousel": "^4.0.7",
     "react-dom": "^16.13.1",
     "react-player": "^2.6.2",
-    "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "react-star-rating-component": "^1.4.1",
+    "simple-rating-stars": "^1.5.3"
   },
   "scripts": {
     "start": "react-scripts start",

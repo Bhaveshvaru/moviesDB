@@ -10,7 +10,7 @@ import RBCarousel from 'react-bootstrap-carousel';
 import 'react-bootstrap-carousel/dist/react-bootstrap-carousel.css';
 import '../../index.css';
 import { Link } from 'react-router-dom';
-import ReactStars from 'react-rating-stars-component';
+import Stars from 'simple-rating-stars';
 
 export function Home() {
   const [nowPlaying, setNowPlaying] = useState([]);
@@ -39,12 +39,7 @@ export function Home() {
         <div className="carousel-center">
           <img style={{ height: 600 }} src={item.backPoster} alt={item.title} />
         </div>
-        <div className="carousel-center">
-          <i
-            className="far fa-play-circle"
-            style={{ fontSize: 95, color: '#f4c10f' }}
-          ></i>
-        </div>
+
         <div
           className="carousel-captain"
           style={{ textAlign: 'center', fontSize: 35 }}
@@ -81,11 +76,13 @@ export function Home() {
         <div className="mt-3">
           <p style={{ fontWeight: 'bolder' }}>{item.title}</p>
           <p>Rated: {item.rating}</p>
-          <ReactStars
-            count={item.rating}
-            size={20}
-            color1={'#f4c10f'}
-          ></ReactStars>
+          <Stars
+            stars={Math.floor(item.rating)}
+            outOf={10}
+            full={'#f4c10f'}
+            empty={'#E1F1FF'}
+            stroke={'#369'}
+          />
         </div>
       </div>
     );
@@ -121,11 +118,13 @@ export function Home() {
         <div className="mt-3">
           <p style={{ fontWeight: 'bolder' }}>{item.title}</p>
           <p>Rated: {item.rating}</p>
-          <ReactStars
-            count={item.rating}
-            size={20}
-            color1={'#f4c10f'}
-          ></ReactStars>
+          <Stars
+            stars={Math.floor(item.rating)}
+            outOf={10}
+            full={'#f4c10f'}
+            empty={'#E1F1FF'}
+            stroke={'#369'}
+          />
         </div>
       </div>
     );
@@ -151,40 +150,17 @@ export function Home() {
         </div>
       </div>
 
-      <div className="row mt-3">
-        <div className="col">
-          <div className="float-right">
-            <i className="far fa-arrow-alt-circle-right"></i>
-          </div>
-        </div>
-      </div>
-
       <div className="row mt-3">{movieList}</div>
+
       <div className="row mt-3">
         <div className="col">
-          <div className="float-right">
-            <i className="far fa-arrow-alt-circle-right"></i>
-          </div>
-        </div>
-      </div>
-      <div className="row mt-3">
-        <div className="col">
-          <p
-            className="font-weight-bold text-center"
-            style={{ color: '#5a606b' }}
-          >
+          <p className="font-weight-bold" style={{ color: '#5a606b' }}>
             TRENDING PERSONS ON THIS WEEK
           </p>
         </div>
       </div>
       <div className="row mt-3">{trendingPersons} </div>
-      <div className="row mt-3">
-        <div className="col">
-          <div className="float-right">
-            <i className="far fa-arrow-alt-circle-right"></i>
-          </div>
-        </div>
-      </div>
+
       <div className="row mt-3">
         <div className="col">
           <p className="font-weight-bold" style={{ color: '#5a606b' }}>
@@ -193,18 +169,12 @@ export function Home() {
         </div>
       </div>
       <div className="row mt-3">{topRatedList}</div>
-      <div className="row mt-3">
-        <div className="col">
-          <div className="float-right">
-            <i className="far fa-arrow-alt-circle-right"></i>
-          </div>
-        </div>
-      </div>
+
       <hr className="mt-5" style={{ borderTop: '1px solid #5a606b' }}></hr>
 
       <div className="row mt-3 mb-5">
         <div className="col-md-8 col-sm-6" style={{ color: '#5a606b' }}>
-          <h3>ABOUT ME</h3>
+          <h3>ABOUT moviesDB</h3>
           <p>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi
             error earum perspiciatis praesentium sint ipsum provident blanditiis
@@ -248,7 +218,7 @@ export function Home() {
                 <strong>
                   <i className="fas fa-map-marker-alt"></i> Address:
                 </strong>{' '}
-                city, state, country
+                moviesDB, city, state, country
               </p>
             </li>
             <li>
@@ -264,7 +234,7 @@ export function Home() {
                 <strong>
                   <i className="fas fa-envelope"></i> Email:
                 </strong>{' '}
-                info@infomail.com
+                movieDB@infomail.com
               </p>
             </li>
           </ul>

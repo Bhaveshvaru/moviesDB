@@ -8,8 +8,8 @@ import {
 import 'react-bootstrap-carousel/dist/react-bootstrap-carousel.css';
 import { Modal } from 'react-bootstrap';
 import ReactPlayer from 'react-player';
-import ReactStars from 'react-rating-stars-component';
 import { Link } from 'react-router-dom';
+import Stars from 'simple-rating-stars';
 
 export function MovieDetail({ match }) {
   let params = match.params;
@@ -105,11 +105,13 @@ export function MovieDetail({ match }) {
         <div className="mt-3">
           <p style={{ fontWeight: 'bolder' }}>{item.title}</p>
           <p>Rated: {item.rating}</p>
-          <ReactStars
-            count={item.rating}
-            size={20}
-            color1={'#f4c10f'}
-          ></ReactStars>
+          <Stars
+            stars={Math.floor(item.rating)}
+            outOf={10}
+            full={'#f4c10f'}
+            empty={'#E1F1FF'}
+            stroke={'#369'}
+          />
         </div>
       </div>
     );
@@ -161,11 +163,14 @@ export function MovieDetail({ match }) {
       <div className="row mt-3">
         <div className="col">
           <div className="text-center">
-            <ReactStars
-              count={detail.vote_average}
-              size={20}
-              color1={'#f4c10f'}
-            ></ReactStars>
+           
+             <Stars
+            stars={Math.floor(detail.vote_average)}
+            outOf={10}
+            full={'#f4c10f'}
+            empty={'#E1F1FF'}
+            stroke={'#369'}
+          />
           </div>
           <div className="mt-3">
             <p style={{ color: '#5a606b', fontWeight: 'bolder' }}>OVERVIEW</p>
@@ -214,7 +219,7 @@ export function MovieDetail({ match }) {
 
       <div className="row mt-3 mb-5">
         <div className="col-md-8 col-sm-6" style={{ color: '#5a606b' }}>
-          <h3>ABOUT ME</h3>
+          <h3>ABOUT movieDB</h3>
           <p>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi
             error earum perspiciatis praesentium sint ipsum provident blanditiis
@@ -258,7 +263,7 @@ export function MovieDetail({ match }) {
                 <strong>
                   <i className="fas fa-map-marker-alt"></i> Address:
                 </strong>{' '}
-                city, state, country
+                movieDB,city, state, country
               </p>
             </li>
             <li>
@@ -274,7 +279,7 @@ export function MovieDetail({ match }) {
                 <strong>
                   <i className="fas fa-envelope"></i> Email:
                 </strong>{' '}
-                info@infomail.com
+                movieDB@infomail.com
               </p>
             </li>
           </ul>
