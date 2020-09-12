@@ -1,11 +1,16 @@
 import React from 'react';
-import './App.css'
-
+import './App.css';
+import { Switch, Route } from 'react-router-dom';
+import {Home} from './components/home/Home';
+import {MovieDetail} from './components/movieDetail/MovieDetail'
 function App() {
   return (
-    <div className="app">
-    <h1>HEllo</h1   >
-    </div>
+    <main>
+      <Switch>
+        <Route path="/" component={Home} exact />
+        <Route path="/movie/:id" component={MovieDetail} />
+      </Switch>
+    </main>
   );
 }
 
