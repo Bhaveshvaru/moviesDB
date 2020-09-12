@@ -23,12 +23,16 @@ export function Home() {
     async function fetchApi() {
       setNowPlaying(await fetchMovies());
       setGeneres(await fetchGenre());
-      setMoviebyGenre(await fetchMovieByGenre(28));
+      setMoviebyGenre(await fetchMovieByGenre());
       setPersons(await fetchPersons());
       setTopRated(await fetchTopratedMovie());
     }
     fetchApi();
   }, []);
+
+  const handleGenreClick = async (genre_id) => {
+    setMoviebyGenre(await fetchMovieByGenre(genre_id));
+  };
   const movies = nowPlaying.slice(0, 5).map((item, index) => {
     return (
       <div style={{ height: 500, width: '100%' }} key={index}>
@@ -53,7 +57,13 @@ export function Home() {
   const genreList = geners.map((item, index) => {
     return (
       <li className="list-inline-item" key={index}>
-        <button type="button" class="btn btn-outline-info">
+        <button
+          type="button"
+          class="btn btn-outline-info"
+          onClick={() => {
+            handleGenreClick(item.id);
+          }}
+        >
           {item.name}
         </button>
       </li>
@@ -141,7 +151,22 @@ export function Home() {
         </div>
       </div>
 
+      <div className="row mt-3">
+        <div className="col">
+          <div className="float-right">
+            <i className="far fa-arrow-alt-circle-right"></i>
+          </div>
+        </div>
+      </div>
+
       <div className="row mt-3">{movieList}</div>
+      <div className="row mt-3">
+        <div className="col">
+          <div className="float-right">
+            <i className="far fa-arrow-alt-circle-right"></i>
+          </div>
+        </div>
+      </div>
       <div className="row mt-3">
         <div className="col">
           <p
@@ -153,7 +178,13 @@ export function Home() {
         </div>
       </div>
       <div className="row mt-3">{trendingPersons} </div>
-
+      <div className="row mt-3">
+        <div className="col">
+          <div className="float-right">
+            <i className="far fa-arrow-alt-circle-right"></i>
+          </div>
+        </div>
+      </div>
       <div className="row mt-3">
         <div className="col">
           <p className="font-weight-bold" style={{ color: '#5a606b' }}>
@@ -162,11 +193,17 @@ export function Home() {
         </div>
       </div>
       <div className="row mt-3">{topRatedList}</div>
-      
-      <hr className="mt-5" style={{ borderTop: "1px solid #5a606b" }}></hr>
+      <div className="row mt-3">
+        <div className="col">
+          <div className="float-right">
+            <i className="far fa-arrow-alt-circle-right"></i>
+          </div>
+        </div>
+      </div>
+      <hr className="mt-5" style={{ borderTop: '1px solid #5a606b' }}></hr>
 
       <div className="row mt-3 mb-5">
-        <div className="col-md-8 col-sm-6" style={{ color: "#5a606b" }}>
+        <div className="col-md-8 col-sm-6" style={{ color: '#5a606b' }}>
           <h3>ABOUT ME</h3>
           <p>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi
@@ -182,35 +219,35 @@ export function Home() {
           </p>
           <ul className="list-inline">
             <li className="list-inline-item">
-              <a href="/" style={{ color: "#f4c10f" }}>
+              <a href="/" style={{ color: '#f4c10f' }}>
                 <i className="fab fa-facebook"></i>
               </a>
             </li>
             <li className="list-inline-item">
-              <a href="/" style={{ color: "#f4c10f" }}>
+              <a href="/" style={{ color: '#f4c10f' }}>
                 <i className="fab fa-youtube"></i>
               </a>
             </li>
             <li className="list-inline-item">
-              <a href="/" style={{ color: "#f4c10f" }}>
+              <a href="/" style={{ color: '#f4c10f' }}>
                 <i className="fab fa-twitter"></i>
               </a>
             </li>
             <li className="list-inline-item">
-              <a href="/" style={{ color: "#f4c10f" }}>
+              <a href="/" style={{ color: '#f4c10f' }}>
                 <i className="fab fa-instagram"></i>
               </a>
             </li>
           </ul>
         </div>
-        <div className="col-md-4 col-sm-6" style={{ color: "#5a606b" }}>
+        <div className="col-md-4 col-sm-6" style={{ color: '#5a606b' }}>
           <h3>KEEP IN TOUCH</h3>
           <ul className="list-unstyled">
             <li>
               <p>
                 <strong>
                   <i className="fas fa-map-marker-alt"></i> Address:
-                </strong>{" "}
+                </strong>{' '}
                 city, state, country
               </p>
             </li>
@@ -218,7 +255,7 @@ export function Home() {
               <p>
                 <strong>
                   <i className="fas fa-map-marker-alt"></i> Phone:
-                </strong>{" "}
+                </strong>{' '}
                 +01 00 00 00
               </p>
             </li>
@@ -226,7 +263,7 @@ export function Home() {
               <p>
                 <strong>
                   <i className="fas fa-envelope"></i> Email:
-                </strong>{" "}
+                </strong>{' '}
                 info@infomail.com
               </p>
             </li>
